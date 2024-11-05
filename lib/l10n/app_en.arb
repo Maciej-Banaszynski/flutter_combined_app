@@ -1,0 +1,9 @@
+{
+  "app_name": "Md Thesis App",
+  "charts_dashboard_title": "Charts",
+  "animations_dashboard_title": "Animations",
+  "maps_dashboard_title": "Maps",
+  "notification_dashboard_title": "Notification",
+  "data_dashboard_title": "Data",
+  "app_something_went_wrong_title": "Something went wrong"
+}

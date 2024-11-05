@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - prefer_relative_imports
+    - depend_on_referenced_packages
+    - file_names
+
+analyzer:
+  exclude:
+    - lib/**.freezed.dart
+    - lib/**.g.dart
