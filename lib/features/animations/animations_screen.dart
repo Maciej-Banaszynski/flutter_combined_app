@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/extensions/build_context_extensions.dart';
 import '../../common/widgets/app_scaffold/app_scaffold.dart';
+import 'animation_view.dart';
 
 class AnimationsScreen extends StatelessWidget {
   const AnimationsScreen({super.key});
@@ -10,7 +11,7 @@ class AnimationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       screenTitle: context.localizations.animations_dashboard_title,
-      child: const Placeholder(),
+      child: const AnimationView(),
     );
   }
 }
