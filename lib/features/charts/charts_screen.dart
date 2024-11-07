@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../common/extensions/build_context_extensions.dart';
 import '../../common/extensions/navigation_on_string/navigation_on_string.dart';
 import '../../common/widgets/app_scaffold/app_scaffold.dart';
+import 'dynamic_plots/dynamic_multiple_charts.dart';
 import 'plots/bar_chart_plot.dart';
 import 'plots/line_chart_plot.dart';
 import 'plots/pie_chart_plot.dart';
@@ -18,6 +19,16 @@ class ChartsScreen extends StatelessWidget {
       screenTitle: context.localizations.charts_dashboard_title,
       child: Column(
         children: [
+          _buildChartButton(
+            icon: Icons.stacked_line_chart,
+            title: 'Multiple Dynamic Charts',
+            onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
+          ),
+          _buildChartButton(
+            icon: Icons.stacked_line_chart,
+            title: 'Multiple Dynamic Charts Unoptimized',
+            onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
+          ),
           _buildChartButton(
             icon: Icons.show_chart,
             title: 'Line Chart',

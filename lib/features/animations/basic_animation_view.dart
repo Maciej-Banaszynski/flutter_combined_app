@@ -1,10 +1,12 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AnimationView extends HookWidget {
-  const AnimationView({super.key});
+import '../../../common/widgets/app_scaffold/app_scaffold.dart';
+
+class BasicAnimationView extends HookWidget {
+  const BasicAnimationView({super.key});
+
+  static const String route = '/basic_animation_view';
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,18 @@ class AnimationView extends HookWidget {
     final rotationController = useAnimationController(duration: const Duration(seconds: 3))..repeat();
     final rotationAnimation = Tween(begin: 0.0, end: 1.0).animate(rotationController);
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildAnimationRow("Linear Animation", linearAnimation, linearController),
-          _buildAnimationRow("Ease-in Animation", easeInAnimation, easeInController),
-          _buildAnimationRow("Bounce Animation", bounceAnimation, bounceController),
-          _buildAnimationRow("Scale Animation", scaleAnimation, scaleController, isScale: true),
-          _buildAnimationRow("Rotation Animation", rotationAnimation, rotationController, isRotation: true),
-        ],
+    return AppScaffold(
+      screenTitle: 'Basic Animations',
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildAnimationRow("Linear Animation", linearAnimation, linearController),
+            _buildAnimationRow("Ease-in Animation", easeInAnimation, easeInController),
+            _buildAnimationRow("Bounce Animation", bounceAnimation, bounceController),
+            _buildAnimationRow("Scale Animation", scaleAnimation, scaleController, isScale: true),
+            _buildAnimationRow("Rotation Animation", rotationAnimation, rotationController, isRotation: true),
+          ],
+        ),
       ),
     );
   }
@@ -54,7 +59,7 @@ class AnimationView extends HookWidget {
             builder: (context, child) {
               // Animation metric values
               double progress = animation.value;
-              double frameRate = ui.window.devicePixelRatio * 60;
+              double frameRate = View.of(context).devicePixelRatio * 60;
               int duration = controller.duration!.inMilliseconds;
 
               return Column(

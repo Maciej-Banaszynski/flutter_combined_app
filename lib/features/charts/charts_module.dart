@@ -2,6 +2,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/app_route_paths.dart';
 import '../charts/charts_screen.dart';
+import 'dynamic_plots/dynamic_multiple_charts.dart';
+import 'dynamic_plots_unoptimized/dynamic_multiple_charts_unoptimized.dart';
 import 'plots/bar_chart_plot.dart';
 import 'plots/line_chart_plot.dart';
 import 'plots/pie_chart_plot.dart';
@@ -30,6 +32,14 @@ class ChartsModule extends Module {
     r.child(
       ScatterChartPlot.route,
       child: (_) => const ScatterChartPlot(),
+    );
+    r.child(
+      DynamicMultipleCharts.route,
+      child: (_) => const DynamicMultipleCharts(),
+    );
+    r.child(
+      DynamicMultipleChartsUnoptimized.route,
+      child: (_) => const DynamicMultipleChartsUnoptimized(),
     );
 
     super.routes(r);

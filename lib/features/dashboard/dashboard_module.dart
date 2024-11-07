@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/app_route_paths.dart';
 import '../../di/di_data_module.dart';
-import '../animations/animations_screen.dart';
+import '../animations/animations_module.dart';
 import '../charts/charts_module.dart';
 import '../data/data_screen.dart';
 import '../maps/maps_screen.dart';
@@ -37,14 +37,18 @@ class DashboardModule extends Module {
           AppRoutePaths.chartsPath,
           module: ChartsModule(),
         ),
+        ModuleRoute(
+          AppRoutePaths.animationsPath,
+          module: AnimationsModule(),
+        ),
         // ChildRoute(
         //   AppRoutePaths.chartsPath,
         //   child: (_) => const ChartsScreen(),
         // ),
-        ChildRoute(
-          AppRoutePaths.animationsPath,
-          child: (_) => const AnimationsScreen(),
-        ),
+        // ChildRoute(
+        //   AppRoutePaths.animationsPath,
+        //   child: (_) => const AnimationsScreen(),
+        // ),
         ChildRoute(
           AppRoutePaths.mapsPath,
           child: (_) => const MapsScreen(),
