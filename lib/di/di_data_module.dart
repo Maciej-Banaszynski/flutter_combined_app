@@ -1,8 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../data/drift/dao/user_dao/user_dao_interface.dart';
+import '../data/drift/drift_db.dart';
+
 class DIDataModule extends Module {
   @override
   void exportedBinds(i) {
-    // i.addLazySingleton<BeaconEntryDaoInterface>(() => DriftDb.instance().beaconEntryDao);
+    i.addLazySingleton<UserDaoInterface>(() => DriftDb.instance().userDao);
+    super.exportedBinds(i);
   }
 }

@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       // rebuildFactor: (_, __) => false,
       builder: (context, child) {
         return MaterialApp.router(
-          title: 'MdThesisApp',
+          title: 'Combined Flutter App',
           debugShowCheckedModeBanner: false,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,
