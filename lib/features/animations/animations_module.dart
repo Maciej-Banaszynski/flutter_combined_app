@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../app/app_route_paths.dart';
 import 'animations_screen.dart';
 import 'basic_animation_view.dart';
+import 'bouncing_balls_screen.dart';
 import 'controlled_animated_screen.dart';
 import 'hero_animations_view.dart';
 
@@ -25,6 +26,10 @@ class AnimationsModule extends Module {
     r.child(
       HeroAnimationsScreen.route,
       child: (_) => const HeroAnimationsScreen(),
+    );
+    r.child(
+      BouncingBallsScreen.route,
+      child: (_) => const BouncingBallsScreen(),
     );
 
     super.routes(r);

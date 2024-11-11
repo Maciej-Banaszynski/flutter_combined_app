@@ -5,6 +5,7 @@ import '../../common/extensions/build_context_extensions.dart';
 import '../../common/extensions/navigation_on_string/navigation_on_string.dart';
 import '../../common/widgets/app_scaffold/app_scaffold.dart';
 import 'basic_animation_view.dart';
+import 'bouncing_balls_screen.dart';
 import 'controlled_animated_screen.dart';
 import 'hero_animations_view.dart';
 
@@ -28,6 +29,10 @@ class AnimationsScreen extends StatelessWidget {
           _buildAnimationButton(
             title: 'Hero Animation Screen',
             onTap: () => Modular.to.pushNamed(HeroAnimationsScreen.route.relativePath),
+          ),
+          _buildAnimationButton(
+            title: 'Bouncing Balls',
+            onTap: () => Modular.to.pushNamed(BouncingBallsScreen.route.relativePath),
           ),
         ],
       ),
