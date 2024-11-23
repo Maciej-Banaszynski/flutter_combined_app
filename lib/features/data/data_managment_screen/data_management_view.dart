@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../common/widgets/app_scaffold/app_scaffold.dart';
+import '../../../data/models/user/user.dart';
 import 'cubit/data_management_cubit.dart';
 import 'cubit/data_management_state.dart';
 
@@ -63,15 +64,15 @@ class _ButtonsSection extends StatelessWidget {
       children: [
         const Text("Select number of users to generate:"),
         ElevatedButton(
-          onPressed: () async => await _cubit(context).generateAndInsertUsers(1000),
+          onPressed: () async => await _cubit(context).insertGeneratedUsers(GeneratedUsersCount.thousand),
           child: const Text("1,000"),
         ),
         ElevatedButton(
-          onPressed: () => _cubit(context).generateAndInsertUsers(10000),
+          onPressed: () => _cubit(context).insertGeneratedUsers(GeneratedUsersCount.tenThousand),
           child: const Text("10,000"),
         ),
         ElevatedButton(
-          onPressed: () => _cubit(context).generateAndInsertUsers(30000),
+          onPressed: () => _cubit(context).insertGeneratedUsers(GeneratedUsersCount.thirtyThousand),
           child: const Text("30,000"),
         ),
         ElevatedButton(

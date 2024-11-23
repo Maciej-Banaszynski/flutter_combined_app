@@ -7,8 +7,8 @@ class UserTable extends Table {
   TextColumn get lastName => text().withLength(min: 1, max: 50)();
   DateTimeColumn get birthDate => dateTime()();
   TextColumn get address => text().withLength(min: 1, max: 100)();
-  TextColumn get photo => text().nullable()(); // Photo as Base64
-  TextColumn get phoneNumber => text().withLength(min: 10, max: 30)();
+  TextColumn get photo => text().nullable()();
+  TextColumn get phoneNumber => text().withLength(min: 0, max: 30)();
   TextColumn get position => text().withLength(min: 1, max: 50)();
   TextColumn get company => text().withLength(min: 1, max: 100)();
 }

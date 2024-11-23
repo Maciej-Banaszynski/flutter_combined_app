@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/app_route_paths.dart';
+import 'animation_comparison/animation_comparision_screen.dart';
 import 'animations_screen.dart';
 import 'basic_animation_view.dart';
 import 'bouncing_balls_screen.dart';
@@ -14,6 +15,10 @@ class AnimationsModule extends Module {
       AppRoutePaths.startPath,
       child: (context) => const AnimationsScreen(),
       transition: TransitionType.noTransition,
+    );
+    r.child(
+      AnimationComparisonScreen.route,
+      child: (_) => const AnimationComparisonScreen(),
     );
     r.child(
       BasicAnimationView.route,

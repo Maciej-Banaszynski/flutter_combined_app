@@ -4,11 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../common/extensions/build_context_extensions.dart';
 import '../../common/extensions/navigation_on_string/navigation_on_string.dart';
 import '../../common/widgets/app_scaffold/app_scaffold.dart';
-import 'dynamic_plots/dynamic_multiple_charts.dart';
-import 'plots/bar_chart_plot.dart';
-import 'plots/line_chart_plot.dart';
-import 'plots/pie_chart_plot.dart';
-import 'plots/scatter_chart_plot.dart';
+import 'fl_charts/fl_charts_view.dart';
 
 class ChartsScreen extends StatelessWidget {
   const ChartsScreen({super.key});
@@ -21,34 +17,39 @@ class ChartsScreen extends StatelessWidget {
         children: [
           _buildChartButton(
             icon: Icons.stacked_line_chart,
-            title: 'Multiple Dynamic Charts',
-            onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
+            title: 'FL Charts',
+            onTap: () => Modular.to.pushNamed(FlChartsView.route.relativePath),
           ),
-          _buildChartButton(
-            icon: Icons.stacked_line_chart,
-            title: 'Multiple Dynamic Charts Unoptimized',
-            onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
-          ),
-          _buildChartButton(
-            icon: Icons.show_chart,
-            title: 'Line Chart',
-            onTap: () => Modular.to.pushNamed(LineChartPlot.route.relativePath),
-          ),
-          _buildChartButton(
-            icon: Icons.bar_chart,
-            title: 'Bar Chart',
-            onTap: () => Modular.to.pushNamed(BarChartPlot.route.relativePath),
-          ),
-          _buildChartButton(
-            icon: Icons.pie_chart,
-            title: 'Pie Chart',
-            onTap: () => Modular.to.pushNamed(PieChartPlot.route.relativePath),
-          ),
-          _buildChartButton(
-            icon: Icons.scatter_plot,
-            title: 'Scatter Plot',
-            onTap: () => Modular.to.pushNamed(ScatterChartPlot.route.relativePath),
-          ),
+          // _buildChartButton(
+          //   icon: Icons.stacked_line_chart,
+          //   title: 'Multiple Dynamic Charts',
+          //   onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
+          // ),
+          // _buildChartButton(
+          //   icon: Icons.stacked_line_chart,
+          //   title: 'Multiple Dynamic Charts Unoptimized',
+          //   onTap: () => Modular.to.pushNamed(DynamicMultipleCharts.route.relativePath),
+          // ),
+          // _buildChartButton(
+          //   icon: Icons.show_chart,
+          //   title: 'Line Chart',
+          //   onTap: () => Modular.to.pushNamed(LineChartPlot.route.relativePath),
+          // ),
+          // _buildChartButton(
+          //   icon: Icons.bar_chart,
+          //   title: 'Bar Chart',
+          //   onTap: () => Modular.to.pushNamed(BarChartPlot.route.relativePath),
+          // ),
+          // _buildChartButton(
+          //   icon: Icons.pie_chart,
+          //   title: 'Pie Chart',
+          //   onTap: () => Modular.to.pushNamed(PieChartPlot.route.relativePath),
+          // ),
+          // _buildChartButton(
+          //   icon: Icons.scatter_plot,
+          //   title: 'Scatter Plot',
+          //   onTap: () => Modular.to.pushNamed(ScatterChartPlot.route.relativePath),
+          // ),
         ],
       ),
     );

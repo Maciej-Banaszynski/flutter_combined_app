@@ -5,6 +5,18 @@ import '../../drift/drift_db.dart';
 part 'user.freezed.dart';
 part 'user.g.dart';
 
+enum GeneratedUsersCount {
+  thousand,
+  tenThousand,
+  thirtyThousand;
+
+  String get filePath => switch (this) {
+        GeneratedUsersCount.thousand => 'assets/1000.csv',
+        GeneratedUsersCount.tenThousand => 'assets/10000.csv',
+        GeneratedUsersCount.thirtyThousand => 'assets/30000.csv',
+      };
+}
+
 @freezed
 class User with _$User {
   const factory User({

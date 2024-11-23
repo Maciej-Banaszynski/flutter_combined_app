@@ -45,6 +45,12 @@ class UserDao extends DatabaseAccessor<DriftDb> with _$UserDaoMixin implements U
   }
 
   @override
+  Future<List<User>> getAllUsersLeads() async {
+    final userRows = await (select(userTable)..where((tbl) => tbl.position.like('%lead%'))).get();
+    return userRows.map((row) => User.fromData(row)).toList();
+  }
+
+  @override
   Future<void> insertUsers(List<User> users) async {
     await batch((batch) {
       batch.insertAll(

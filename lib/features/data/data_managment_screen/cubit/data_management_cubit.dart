@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 
+import '../../../../data/models/user/user.dart';
 import '../../../../data/repositories/user_repository/user_repository_interface.dart';
 import 'data_management_state.dart';
 
@@ -33,6 +34,28 @@ class DataManagementCubit extends Cubit<DataManagementState> {
     }
   }
 
+  Future<void> generateAndSaveUsers(int count) async {
+    emit(const Loading());
+    try {
+      await _userRepository.generateAndSaveUsers(count);
+      await loadUsers();
+    } catch (e) {
+      print(e);
+      emit(Error("Failed to insert users: $e"));
+    }
+  }
+
+  Future<void> insertGeneratedUsers(GeneratedUsersCount count) async {
+    emit(const Loading());
+    try {
+      await _userRepository.insertGeneratedUsers(count);
+      await loadUsers();
+    } catch (e) {
+      print(e);
+      emit(Error("Failed to insert users: $e"));
+    }
+  }
+
   Future<void> deleteAllUsers() async {
     emit(const Loading());
     try {
@@ -41,6 +64,17 @@ class DataManagementCubit extends Cubit<DataManagementState> {
     } catch (e) {
       emit(Error("Failed to delete users: $e"));
     }
+  }
+
+  Future<void> getOnlyLeadUsers() async {
+    emit(const Loading());
+    try {
+      final users = await _userRepository.getAllUsersLeads();
+      print(users.length);
+    } catch (e) {
+      print(e);
+    }
+    await loadUsers();
   }
 
   Future<void> batchUpdate() async {

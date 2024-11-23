@@ -62,7 +62,7 @@ class $UserTableTable extends UserTable
   late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
       'phone_number', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 10, maxTextLength: 30),
+          GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 30),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   static const VerificationMeta _positionMeta =

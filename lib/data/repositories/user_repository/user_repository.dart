@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:csv/csv.dart';
 import 'package:faker/faker.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import '../../drift/dao/user_dao/user_dao_interface.dart';
 import '../../hive/objects/user_photo_box/user_photo.dart';
@@ -35,6 +39,69 @@ class UserRepository implements UserRepositoryInterface {
   }
 
   @override
+  Future<void> insertGeneratedUsers(GeneratedUsersCount count) async {
+    final String csvString = await rootBundle.loadString(count.filePath);
+
+    final List<List<dynamic>> csvData = const CsvToListConverter().convert(csvString);
+
+    final users = csvData
+        .skip(1)
+        .map((row) => User(
+              id: 0,
+              firstName: row[0] as String,
+              lastName: row[1] as String,
+              birthDate: DateTime.parse(row[2] as String),
+              address: row[3] as String,
+              phoneNumber: row[4] is int ? row[4].toString() : row[4] as String,
+              position: row[5] as String,
+              company: row[6] as String,
+            ))
+        .toList();
+    await _userDao.insertNewUsers(users);
+  }
+
+  @override
+  Future<void> generateAndSaveUsers(int count) async {
+    final faker = Faker();
+    final randomUsers = List.generate(
+      count,
+      (index) => User(
+        id: 0,
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
+        birthDate: faker.date.dateTime(minYear: 1950, maxYear: 2000),
+        address: faker.address.streetAddress(),
+        phoneNumber: faker.phoneNumber.us(),
+        position: faker.job.title(),
+        company: faker.company.name(),
+      ),
+    );
+
+    List<List<String>> csvData = [
+      ['firstName', 'lastName', 'birthDate', 'address', 'phoneNumber', 'position', 'company'],
+      ...randomUsers.map((user) => [
+            user.firstName,
+            user.lastName,
+            user.birthDate.toIso8601String(),
+            user.address,
+            user.phoneNumber,
+            user.position,
+            user.company,
+          ]),
+    ];
+
+    String dataToSave = const ListToCsvConverter().convert(csvData);
+
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/fake_data.csv';
+    final file = File(filePath);
+
+    await file.writeAsString(dataToSave);
+
+    print('CSV saved at: $filePath');
+  }
+
+  @override
   Future<void> saveUserPhoto(User user, String imageUrl) async {
     final response = await http.get(Uri.parse(imageUrl));
     if (response.statusCode == 200) {
@@ -61,6 +128,9 @@ class UserRepository implements UserRepositoryInterface {
 
   @override
   Future<List<User>> getAllUsers() => _userDao.getAllUsers();
+
+  @override
+  Future<List<User>> getAllUsersLeads() => _userDao.getAllUsersLeads();
 
   @override
   Future<void> deleteUserById(int userId) => _userDao.deleteUserById(userId);
