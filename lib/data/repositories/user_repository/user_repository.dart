@@ -19,7 +19,7 @@ class UserRepository implements UserRepositoryInterface {
   UserRepository(this._userDao);
 
   @override
-  Future<void> generateAndInsertUsers(int count) async {
+  Future<List<User>> generateUsers(int count) async {
     final faker = Faker();
     final randomUsers = List.generate(
       count,
@@ -35,6 +35,12 @@ class UserRepository implements UserRepositoryInterface {
       ),
     );
 
+    return randomUsers;
+  }
+
+  @override
+  Future<void> generateAndInsertUsers(int count) async {
+    final randomUsers = await generateUsers(count);
     await _userDao.insertNewUsers(randomUsers);
   }
 

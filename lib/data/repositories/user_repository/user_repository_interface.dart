@@ -8,6 +8,7 @@ abstract interface class UserRepositoryInterface {
   Future<List<User>> getAllUsersLeads();
   Future<void> deleteUserById(int userId);
   Future<void> deleteAllData();
+  Future<List<User>> generateUsers(int count);
   Future<void> generateAndInsertUsers(int count);
   Future<void> generateAndSaveUsers(int count);
   Future<void> insertGeneratedUsers(GeneratedUsersCount count);

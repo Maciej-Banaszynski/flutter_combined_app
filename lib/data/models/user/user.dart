@@ -15,6 +15,18 @@ enum GeneratedUsersCount {
         GeneratedUsersCount.tenThousand => 'assets/10000.csv',
         GeneratedUsersCount.thirtyThousand => 'assets/30000.csv',
       };
+
+  String get displayName => switch (this) {
+        GeneratedUsersCount.thousand => "1000",
+        GeneratedUsersCount.tenThousand => "10000",
+        GeneratedUsersCount.thirtyThousand => "30000",
+      };
+
+  int get value => switch (this) {
+        GeneratedUsersCount.thousand => 1000,
+        GeneratedUsersCount.tenThousand => 10000,
+        GeneratedUsersCount.thirtyThousand => 30000,
+      };
 }
 
 @freezed

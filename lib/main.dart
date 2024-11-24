@@ -12,7 +12,7 @@ Future<void> main() async {
   runApp(
     ModularApp(
       module: AppModule(),
-      child: const App(),
+      child: App(),
     ),
   );
 }

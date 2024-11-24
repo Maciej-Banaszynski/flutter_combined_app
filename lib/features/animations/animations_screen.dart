@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../common/extensions/build_context_extensions.dart';
 import '../../common/extensions/navigation_on_string/navigation_on_string.dart';
 import '../../common/widgets/app_scaffold/app_scaffold.dart';
+import 'animation_comparison/animation_comparison_screen.dart';
 import 'basic_animation_view.dart';
 import 'bouncing_balls_screen.dart';
 import 'controlled_animated_screen.dart';
@@ -18,6 +19,10 @@ class AnimationsScreen extends StatelessWidget {
       screenTitle: context.localizations.animations_dashboard_title,
       child: Column(
         children: [
+          _buildAnimationButton(
+            title: 'Animation Comparison',
+            onTap: () => Modular.to.pushNamed(AnimationComparisonScreen.route.relativePath),
+          ),
           _buildAnimationButton(
             title: 'Basic Multiple Animations',
             onTap: () => Modular.to.pushNamed(BasicAnimationView.route.relativePath),

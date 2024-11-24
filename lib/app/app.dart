@@ -7,12 +7,12 @@ import '../config/localization_config.dart';
 import 'app_route_paths.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key}) {
+    Modular.to.navigate(AppRoutePaths.chartsPath.toNavigation);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Modular.to.navigate(AppRoutePaths.chartsPath.toNavigation);
-
     return ScreenUtilInit(
       designSize: const Size(750, 1334),
       fontSizeResolver: (fontSize, instance) => FontSizeResolvers.radius(fontSize, instance),
@@ -31,23 +31,7 @@ class App extends StatelessWidget {
   }
 
   ThemeData _buildLightTheme() {
-    final ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: Colors.orangeAccent,
-      brightness: Brightness.light,
-      contrastLevel: 0,
-    );
-
-    return ThemeData(
-      useMaterial3: true,
-      colorScheme: colorScheme,
-      appBarTheme: AppBarTheme(
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
-      ),
-      buttonTheme: ButtonThemeData(
-        buttonColor: colorScheme.primary,
-      ),
-    );
+    return ThemeData(useMaterial3: true);
   }
 
   ThemeData _buildDarkTheme() {
