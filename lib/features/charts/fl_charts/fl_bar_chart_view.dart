@@ -7,8 +7,8 @@ import '../../../common/metrics_manager/metrics_manager.dart';
 import '../../../data/models/chart_data_point.dart';
 import 'chart_data_size_picker.dart';
 
-class FlLineChartView extends HookWidget {
-  const FlLineChartView({
+class FlBarChartView extends HookWidget {
+  const FlBarChartView({
     super.key,
     required this.chartType,
   });
@@ -20,7 +20,7 @@ class FlLineChartView extends HookWidget {
     final metricsManager = Modular.get<MetricsManager>();
     final data = useState<List<List<DataPoint>>>([]);
     final labels = useState<List<String>>([]);
-    final dataSize = useState<DataSize>(DataSize.fifty);
+    final dataSize = useState<DataSize>(DataSize.five);
 
     useEffect(() {
       _generateData(
@@ -35,11 +35,11 @@ class FlLineChartView extends HookWidget {
 
     return Column(
       children: [
-        Text(chartType.lineTitle),
+        Text(chartType.barTitle),
         const SizedBox(height: 20),
         ChartDataSizePicker(
           dataSize: dataSize.value,
-          dataSizeValues: DataSize.lineChartValues,
+          dataSizeValues: DataSize.barChartValues,
           onValueChanged: (newDataSize) => dataSize.value = newDataSize,
         ),
         const SizedBox(height: 20),
@@ -49,32 +49,40 @@ class FlLineChartView extends HookWidget {
               ? const Center(child: CircularProgressIndicator())
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: LineChart(
-                    LineChartData(
-                      lineBarsData: data.value
+                  child: BarChart(
+                    BarChartData(
+                      barGroups: data.value
                           .asMap()
                           .entries
                           .map(
-                            (entry) => LineChartBarData(
-                              spots: entry.value
+                            (entry) => BarChartGroupData(
+                              x: entry.key,
+                              barRods: entry.value
                                   .where((point) {
                                     final xMillis = point.x.millisecondsSinceEpoch;
                                     return xMillis >= 0 && point.y.isFinite;
                                   })
                                   .map(
-                                    (point) => FlSpot(
-                                      point.x.millisecondsSinceEpoch.toDouble(),
-                                      point.y,
+                                    (point) => BarChartRodData(
+                                      toY: point.y,
+                                      color: [
+                                        Colors.blueAccent,
+                                        Colors.redAccent,
+                                        Colors.lightGreen,
+                                      ][entry.key],
                                     ),
                                   )
                                   .toList(),
-                              isCurved: true,
-                              color: [Colors.blueAccent, Colors.redAccent, Colors.lightGreen][entry.key],
-                              dotData: const FlDotData(show: false),
-                              barWidth: 2,
                             ),
                           )
                           .toList(),
+                      titlesData: const FlTitlesData(
+                        leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
+                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
+                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      ),
+                      borderData: FlBorderData(show: false),
                     ),
                   ),
                 ),

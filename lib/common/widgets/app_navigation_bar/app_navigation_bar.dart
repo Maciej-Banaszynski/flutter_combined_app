@@ -40,14 +40,14 @@ class AppNavigationBar extends StatelessWidget {
             icon: const Icon(Icons.animation_rounded),
             label: context.localizations.animations_dashboard_title,
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.map_rounded),
-            label: context.localizations.maps_dashboard_title,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.notifications),
-            label: context.localizations.notification_dashboard_title,
-          ),
+          // NavigationDestination(
+          //   icon: const Icon(Icons.map_rounded),
+          //   label: context.localizations.maps_dashboard_title,
+          // ),
+          // NavigationDestination(
+          //   icon: const Icon(Icons.notifications),
+          //   label: context.localizations.notification_dashboard_title,
+          // ),
           NavigationDestination(
             icon: const Icon(Icons.data_array),
             label: context.localizations.data_dashboard_title,
@@ -64,9 +64,9 @@ class AppNavigationBar extends StatelessWidget {
     _dashboardCubit(context).onSelectedIndexChanged(selectedIndex);
     final navigateToPath = switch (selectedIndex) {
       1 => AppRoutePaths.animationsPath.toNavigation,
-      2 => AppRoutePaths.mapsPath.toNavigation,
-      3 => AppRoutePaths.notificationPath.toNavigation,
-      4 => AppRoutePaths.dataPath.toNavigation,
+      // 2 => AppRoutePaths.mapsPath.toNavigation,
+      // 3 => AppRoutePaths.notificationPath.toNavigation,
+      2 => AppRoutePaths.dataPath.toNavigation, // 4
       _ => AppRoutePaths.chartsPath.toNavigation,
     };
     Modular.to.navigate(navigateToPath);
