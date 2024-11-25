@@ -20,14 +20,11 @@ class AnimationComparisonView extends HookWidget {
   Widget build(BuildContext context) {
     final isAnimating = useState(false);
     final numElements = useState(5);
-    final animationSpeed = useState(1.0);
+    final animationSpeed = useState(1);
     final isLoadingUsers = useState(false);
     final listOfUsers = useState<List<User>>([]);
 
     void startMetricsTracking() async {
-      // await _cubit(context).trackAction(
-      //     'Animation Comparison Metrics numElements: ${numElements.value} animationSpeed: ${animationSpeed.value}',
-      //     () async {
       while (isAnimating.value) {
         await Future.delayed(const Duration(milliseconds: 100));
       }
@@ -91,19 +88,21 @@ class AnimationComparisonView extends HookWidget {
                   Row(
                     children: [
                       const Text("Animation Speed:"),
-                      Expanded(
-                        child: Slider(
-                          value: animationSpeed.value,
-                          min: 0.1,
-                          max: 100.0,
-                          divisions: 1000,
-                          label: "${animationSpeed.value.toStringAsFixed(1)}x",
-                          onChanged: (value) {
+                      DropdownButton<int>(
+                        value: animationSpeed.value,
+                        items: [20, 200, 1000]
+                            .map((e) => DropdownMenuItem<int>(
+                                  value: e,
+                                  child: Text(e.toString()),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
                             animationSpeed.value = value;
-                          },
-                        ),
+                          }
+                        },
                       ),
-                      Text("${animationSpeed.value.toStringAsFixed(1)}x"),
+                      Text("${animationSpeed.value}"),
                     ],
                   ),
                   SwitchListTile(
@@ -165,7 +164,7 @@ class AnimationComparisonView extends HookWidget {
                   numElements.value,
                   (index) => ExpensiveAnimatedCircle(
                     isAnimating: isAnimating.value,
-                    animationSpeed: animationSpeed.value,
+                    animationSpeed: animationSpeed.value.toDouble(),
                   ),
                 ),
               ),
