@@ -4,15 +4,14 @@ import 'package:bloc/bloc.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../common/metrics_manager/metrics_manager.dart';
 import '../../../../data/models/user/user.dart';
 import '../../../../data/repositories/user_repository/user_repository_interface.dart';
 import 'animation_comparison_state.dart';
 
 class AnimationComparisonCubit extends Cubit<AnimationComparisonState> {
-  AnimationComparisonCubit(this._userRepository, this._metricsManager) : super(const AnimationComparisonState());
+  AnimationComparisonCubit(this._userRepository) : super(const AnimationComparisonState());
   final UserRepositoryInterface _userRepository;
-  final MetricsManager _metricsManager;
+  // final MetricsManager _metricsManager;
 
   Future<void> loadUsers(int count) async {
     try {
@@ -37,6 +36,6 @@ class AnimationComparisonCubit extends Cubit<AnimationComparisonState> {
 
   void clearUsers() => emit(state.copyWith(listOfUsers: []));
 
-  Future<T?> trackAction<T>(String actionName, Future<T> Function() action) async =>
-      await _metricsManager.trackAction(actionName, action);
+  // Future<T?> trackAction<T>(String actionName, Future<T> Function() action) async =>
+  // await _metricsManager.trackAction(actionName, action);
 }

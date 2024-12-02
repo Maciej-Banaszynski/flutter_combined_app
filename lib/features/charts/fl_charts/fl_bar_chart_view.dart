@@ -1,9 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../common/metrics_manager/metrics_manager.dart';
 import '../../../data/models/chart_data_point.dart';
 import 'chart_data_size_picker.dart';
 
@@ -17,14 +15,14 @@ class FlBarChartView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final metricsManager = Modular.get<MetricsManager>();
+    // final metricsManager = Modular.get<MetricsManager>();
     final data = useState<List<List<DataPoint>>>([]);
     final labels = useState<List<String>>([]);
     final dataSize = useState<DataSize>(DataSize.five);
 
     useEffect(() {
       _generateData(
-        metricsManager: metricsManager,
+        // metricsManager: metricsManager,
         chartType: chartType,
         dataSize: dataSize.value,
         data: data,
@@ -93,7 +91,7 @@ class FlBarChartView extends HookWidget {
   }
 
   Future<void> _generateData({
-    required MetricsManager metricsManager,
+    // required MetricsManager metricsManager,
     required ChartType chartType,
     required DataSize dataSize,
     required ValueNotifier<List<List<DataPoint>>> data,

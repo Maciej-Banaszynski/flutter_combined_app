@@ -24,13 +24,6 @@ class AnimationComparisonView extends HookWidget {
     final isLoadingUsers = useState(false);
     final listOfUsers = useState<List<User>>([]);
 
-    void startMetricsTracking() async {
-      while (isAnimating.value) {
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
-      // });
-    }
-
     Future<void> loadUsers(BuildContext context, {required GeneratedUsersCount count}) async {
       isLoadingUsers.value = true;
       final String csvString = await rootBundle.loadString(count.filePath);
@@ -110,7 +103,6 @@ class AnimationComparisonView extends HookWidget {
                     value: isAnimating.value,
                     onChanged: (value) {
                       isAnimating.value = value;
-                      if (value) startMetricsTracking();
                     },
                   ),
                 ],

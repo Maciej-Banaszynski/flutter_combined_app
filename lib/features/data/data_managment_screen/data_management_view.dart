@@ -15,12 +15,16 @@ class DataManagementView extends HookWidget {
     return const AppScaffold(
       screenTitle: "Data",
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _TopSection(),
-            _ButtonsSection(),
-          ],
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _TopSection(),
+              SizedBox(height: 20),
+              _ButtonsSection(),
+            ],
+          ),
         ),
       ),
     );
@@ -35,10 +39,13 @@ class _TopSection extends StatelessWidget {
     return BlocBuilder<DataManagementCubit, DataManagementState>(
       builder: (context, state) {
         return state.mapOrNull(
-              loading: (_) => const CircularProgressIndicator(),
-              loaded: (state) => Text(
-                "Total users: ${state.users.length}",
-                style: const TextStyle(fontSize: 20),
+              loading: (_) => const Center(child: CircularProgressIndicator()),
+              loaded: (state) => Center(
+                child: Text(
+                  "Total users: ${state.users.length}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 20),
+                ),
               ),
               error: (state) => Text(
                 "Error: ${state.message}",
@@ -59,33 +66,68 @@ class _ButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.select((DataManagementCubit cubit) => cubit.state);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text("Select number of users to generate:"),
-        ElevatedButton(
-          onPressed: () async => await _cubit(context).insertGeneratedUsers(GeneratedUsersCount.thousand),
-          child: const Text("1,000"),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: GeneratedUsersCount.values.map((count) {
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: state is Loading ? null : () async => await _cubit(context).insertGeneratedUsers(count),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Text("Load\n${count.displayName}", textAlign: TextAlign.center),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
         ),
-        ElevatedButton(
-          onPressed: () => _cubit(context).insertGeneratedUsers(GeneratedUsersCount.tenThousand),
-          child: const Text("10,000"),
-        ),
-        ElevatedButton(
-          onPressed: () => _cubit(context).insertGeneratedUsers(GeneratedUsersCount.thirtyThousand),
-          child: const Text("30,000"),
-        ),
-        ElevatedButton(
-          onPressed: () async => await _cubit(context).loadUsers(),
-          child: const Text("Fetch Users by Company"),
-        ),
-        ElevatedButton(
-          onPressed: () async => await _cubit(context).batchUpdate(),
-          child: const Text("Update Users"),
-        ),
-        ElevatedButton(
-          onPressed: () => _cubit(context).deleteAllUsers(),
-          child: const Text("Delete All Users"),
+        const SizedBox(height: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () async => await _cubit(context).getOnlyLeadUsers(),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6.0),
+                    child: Text("Get only\nLeads", textAlign: TextAlign.center),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () async => await _cubit(context).loadUsers(),
+                  child: const Text("Get All", textAlign: TextAlign.center),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () => _cubit(context).deleteAllUsers(),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6.0),
+                    child: Text("Delete\nAll Users", textAlign: TextAlign.center),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

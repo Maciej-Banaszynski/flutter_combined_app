@@ -19,10 +19,6 @@ class DataManagementSelectionScreen extends StatelessWidget {
             title: 'Basic Management',
             onTap: () => Modular.to.pushNamed(DataManagementScreen.route.relativePath),
           ),
-          _buildDataButton(
-            title: 'Optimized Management',
-            onTap: () => Modular.to.pushNamed(DataManagementScreen.route.relativePath),
-          ),
         ],
       ),
     );

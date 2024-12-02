@@ -23,28 +23,6 @@ class DataManagementCubit extends Cubit<DataManagementState> {
     }
   }
 
-  Future<void> generateAndInsertUsers(int count) async {
-    emit(const Loading());
-    try {
-      await _userRepository.generateAndInsertUsers(count);
-      await loadUsers();
-    } catch (e) {
-      print(e);
-      emit(Error("Failed to insert users: $e"));
-    }
-  }
-
-  Future<void> generateAndSaveUsers(int count) async {
-    emit(const Loading());
-    try {
-      await _userRepository.generateAndSaveUsers(count);
-      await loadUsers();
-    } catch (e) {
-      print(e);
-      emit(Error("Failed to insert users: $e"));
-    }
-  }
-
   Future<void> insertGeneratedUsers(GeneratedUsersCount count) async {
     emit(const Loading());
     try {
@@ -70,11 +48,10 @@ class DataManagementCubit extends Cubit<DataManagementState> {
     emit(const Loading());
     try {
       final users = await _userRepository.getAllUsersLeads();
-      print(users.length);
+      emit(Loaded(users));
     } catch (e) {
-      print(e);
+      emit(Error("Failed to load users: $e"));
     }
-    await loadUsers();
   }
 
   Future<void> batchUpdate() async {
